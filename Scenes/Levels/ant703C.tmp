@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnlx1hy45i7c0"]
+
+[ext_resource type="PackedScene" uid="uid://ct8wofrqhdxlh" path="res://Scenes/Enemies/enemy_dynamite_guy.tscn" id="1_ij1vo"]
+
+[node name="Anthony_Level_1" type="Node2D"]
+
+[node name="enemy_dynamite_guy" parent="." instance=ExtResource("1_ij1vo")]
+position = Vector2(295, 222)
