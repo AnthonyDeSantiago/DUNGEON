@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://ct8wofrqhdxlh"]
+[gd_scene load_steps=32 format=3 uid="uid://ct8wofrqhdxlh"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_dynamite_guy.gd" id="1_n37rb"]
+[ext_resource type="PackedScene" uid="uid://cnakgc3hxi8q1" path="res://Scenes/Components/component_throwable_telegraph.tscn" id="2_0pwql"]
 [ext_resource type="Texture2D" uid="uid://cr5en7waktri3" path="res://Art/Factions/Goblins/Troops/TNT/Red/TNT_Red.png" id="2_4m6r7"]
 [ext_resource type="PackedScene" uid="uid://bmwuswkr8m674" path="res://Scenes/Components/component_movement.tscn" id="2_p8eek"]
 [ext_resource type="PackedScene" uid="uid://dnnen80yxw1tn" path="res://Scenes/Components/component_health.tscn" id="3_ijcv1"]
@@ -157,8 +158,8 @@ animations = [{
 "speed": 14.0
 }]
 
-[sub_resource type="Animation" id="Animation_qd31g"]
-resource_name = "walking"
+[sub_resource type="Animation" id="Animation_qetg4"]
+resource_name = "Idling"
 length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -171,7 +172,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"walk"]
+"values": [&"idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -213,35 +214,6 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_qetg4"]
-resource_name = "Idling"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
 [sub_resource type="Animation" id="Animation_65vi1"]
 resource_name = "Throwing"
 length = 0.7
@@ -271,6 +243,35 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
 
+[sub_resource type="Animation" id="Animation_qd31g"]
+resource_name = "walking"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hed2r"]
 _data = {
 "Idling": SubResource("Animation_qetg4"),
@@ -281,6 +282,8 @@ _data = {
 
 [node name="enemy_dynamite_guy" type="CharacterBody2D"]
 script = ExtResource("1_n37rb")
+
+[node name="component_throwable_telegraph" parent="." instance=ExtResource("2_0pwql")]
 
 [node name="component_movement" parent="." instance=ExtResource("2_p8eek")]
 
@@ -297,3 +300,7 @@ root_node = NodePath("../AnimatedSprite2D")
 libraries = {
 "": SubResource("AnimationLibrary_hed2r")
 }
+
+[node name="throw_rate" type="Timer" parent="."]
+
+[connection signal="timeout" from="throw_rate" to="." method="_on_throw_rate_timeout"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnlx1hy45i7c0"]
+[gd_scene load_steps=4 format=3 uid="uid://dnlx1hy45i7c0"]
 
 [ext_resource type="PackedScene" uid="uid://ct8wofrqhdxlh" path="res://Scenes/Enemies/enemy_dynamite_guy.tscn" id="1_ij1vo"]
+[ext_resource type="PackedScene" uid="uid://cdjfb5l73kmwv" path="res://Scenes/Throwables/dynamite.tscn" id="2_o6ada"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0wdao"]
 vertices = PackedVector2Array(1201, 655, -18, 659, -20, -22, 1208, -34)
@@ -10,8 +11,13 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Anthony_Level_1" type="Node2D"]
 
-[node name="enemy_dynamite_guy" parent="." instance=ExtResource("1_ij1vo")]
-position = Vector2(295, 222)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_0wdao")
+
+[node name="enemy_dynamite_guy" parent="." instance=ExtResource("1_ij1vo")]
+
+[node name="Dynamite" parent="." instance=ExtResource("2_o6ada")]
+position = Vector2(372, 241)
+
+[node name="Dynamite2" parent="." instance=ExtResource("2_o6ada")]
+position = Vector2(511, 260)

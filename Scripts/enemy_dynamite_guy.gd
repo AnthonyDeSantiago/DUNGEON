@@ -11,6 +11,9 @@ extends CharacterBody2D
 @onready var hitbox: Component_Hitbox = $component_hitbox
 @onready var animation_player = $AnimationPlayer
 @onready var target: Vector2
+@onready var component_throwable_telegraph: Component_Throwable_Telegraph = $component_throwable_telegraph
+@onready var can_throw = true
+@onready var throw_timer: Timer = $throw_rate
 
 
 func _ready():
@@ -29,6 +32,28 @@ func _physics_process(delta):
 	
 	if movement_component.reached_target():
 		animation_player.play("Throwing")
+		
+		if can_throw:
+			can_throw = false
+			throw_timer.start()
+			var t = preload("res://Scenes/Components/throwable.tscn")
+			var t_instance: Throwable = t.instantiate()
+			var d = preload("res://Scenes/Throwables/dynamite.tscn")
+			var d_instance: Dynamite = d.instantiate()
+			
+			add_sibling(t_instance)
+			t_instance.init_throwable()
+			t_instance.set_throwable(d_instance)
+			t_instance.set_origin(position)
+			t_instance.set_destination(target)
+			t_instance.create_parabola()
+			t_instance.position = position
+			
+		
+		#component_throwable_telegraph.set_origin(position - global_position)
+		#component_throwable_telegraph.set_destination(target - global_position)
+		#component_throwable_telegraph.draw_parabola()
+		#component_throwable_telegraph.clear_parabola()
 	elif not movement_component.reached_target():
 		animation_player.play("walking")
 	flip_sprite()
@@ -38,3 +63,8 @@ func flip_sprite():
 		animated_sprite_2d.flip_h = false
 	else:
 		animated_sprite_2d.flip_h = true
+
+
+func _on_throw_rate_timeout():
+	can_throw = true
+	throw_timer.stop()

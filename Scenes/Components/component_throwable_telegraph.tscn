@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnakgc3hxi8q1"]
+
+[ext_resource type="Script" path="res://Scripts/Components/component_throwable_telegraph.gd" id="1_eaua0"]
+
+[node name="component_throwable_telegraph" type="Node2D"]
+script = ExtResource("1_eaua0")
+
+[node name="Line2D" type="Line2D" parent="."]

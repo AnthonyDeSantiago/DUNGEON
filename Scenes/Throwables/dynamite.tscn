@@ -1,0 +1,236 @@
+[gd_scene load_steps=24 format=3 uid="uid://cdjfb5l73kmwv"]
+
+[ext_resource type="Script" path="res://Scripts/Components/dynamite.gd" id="1_djcjk"]
+[ext_resource type="Texture2D" uid="uid://djf24yy0e2nuw" path="res://Art/Effects/Explosion/Explosions.png" id="2_rvq5y"]
+[ext_resource type="Texture2D" uid="uid://bwyjib1ujrmgn" path="res://Art/Factions/Goblins/Troops/TNT/Dynamite/Dynamite.png" id="3_3blkj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roudn"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81na6"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtocr"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nak4t"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdd2c"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_air5n"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rd2ue"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyog5"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(1344, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy07m"]
+atlas = ExtResource("2_rvq5y")
+region = Rect2(1536, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y148p"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egd40"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42tua"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xehbq"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bquc5"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g85rc"]
+atlas = ExtResource("3_3blkj")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jvpkp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roudn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81na6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtocr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nak4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdd2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_air5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rd2ue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyog5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy07m")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y148p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egd40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42tua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xehbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bquc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g85rc")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_rf8ba"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"lit"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_e7tap"]
+resource_name = "explosion"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"explode"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_eg1lt"]
+resource_name = "lit_fuse"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"lit"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_extl1"]
+_data = {
+"RESET": SubResource("Animation_rf8ba"),
+"explosion": SubResource("Animation_e7tap"),
+"lit_fuse": SubResource("Animation_eg1lt")
+}
+
+[node name="Dynamite" type="Node2D"]
+script = ExtResource("1_djcjk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jvpkp")
+animation = &"lit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_extl1")
+}
+
+[node name="Fuse" type="Timer" parent="."]
+wait_time = 2.944
+one_shot = true
+autostart = true
+
+[node name="Explosion_Timer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Fuse" to="." method="_on_fuse_timeout"]
