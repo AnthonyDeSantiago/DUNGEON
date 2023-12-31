@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
+@export_group("Enemy Settings")
 @export var SPEED = 1
 @export var ACCEL = 5
+
+@export_group("Throwable Settings")
 @export var throw_speed = 500
-@export var min_distance_to_target = 300
+@export var throw_range = 300
 @export var target_body: CharacterBody2D = null
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -20,7 +23,7 @@ extends CharacterBody2D
 func _ready():
 	movement_component.base_mov_speed = SPEED
 	movement_component.base_acceleration = ACCEL
-	movement_component.base_min_distance_to_target = min_distance_to_target
+	movement_component.base_min_distance_to_target = throw_range
 	
 func _physics_process(delta):
 	if target_body == null:
@@ -32,12 +35,12 @@ func _physics_process(delta):
 	movement_component.move(self, delta)
 	
 	if movement_component.reached_target():
-		
 		if can_throw:
-			print(can_throw)
 			animation_player.play("Throwing")
+			
 			can_throw = false
 			throw_timer.start()
+			
 			var t = preload("res://Scenes/Components/throwable.tscn")
 			var t_instance: Throwable = t.instantiate()
 			var d = preload("res://Scenes/Throwables/dynamite.tscn")
@@ -51,6 +54,10 @@ func _physics_process(delta):
 			t_instance.set_destination(target - global_position)
 			t_instance.create_line()
 			t_instance.position = position
+		else:
+			if animation_player.current_animation == "walking":
+				animation_player.stop()
+			animation_player.queue("Idling")
 			
 		
 		#component_throwable_telegraph.set_origin(position - global_position)
@@ -69,6 +76,5 @@ func flip_sprite():
 
 
 func _on_throw_rate_timeout():
-	print("timeout")
 	can_throw = true
 	throw_timer.stop()

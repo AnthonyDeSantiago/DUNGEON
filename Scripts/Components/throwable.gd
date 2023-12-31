@@ -11,10 +11,7 @@ var throwable = null
 @onready var path_follow_2d: PathFollow2D = %PathFollow2D
 @onready var parabola_line:Curve2D
 
-func _ready():
-	path = $Path2D
-	path_follow_2d = $PathFollow2D
-	parabola_line = Curve2D.new()
+
 
 func _process(delta):
 	if path != null and path_follow_2d != null:
