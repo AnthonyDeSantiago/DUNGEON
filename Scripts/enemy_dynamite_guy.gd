@@ -3,11 +3,16 @@ extends CharacterBody2D
 @export_group("Enemy Settings")
 @export var SPEED = 1
 @export var ACCEL = 5
+@export var target_body: CharacterBody2D = null
 
 @export_group("Throwable Settings")
+##The speed of the throwable
 @export var throw_speed = 500
+##The range of the throwable (will also make the enemy stop at that range)
 @export var throw_range = 300
-@export var target_body: CharacterBody2D = null
+##The rate that this enemy throws
+@export var throw_rate = 1
+
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var movement_component: Component_Movement = $component_movement
@@ -24,6 +29,7 @@ func _ready():
 	movement_component.base_mov_speed = SPEED
 	movement_component.base_acceleration = ACCEL
 	movement_component.base_min_distance_to_target = throw_range
+	throw_timer.wait_time = 1 / throw_rate
 	
 func _physics_process(delta):
 	if target_body == null:
