@@ -130,7 +130,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a6tvw")
 }],
-"loop": true,
+"loop": false,
 "name": &"throw",
 "speed": 8.0
 }, {
@@ -217,7 +217,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_65vi1"]
 resource_name = "Throwing"
 length = 0.7
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -302,5 +301,6 @@ libraries = {
 }
 
 [node name="throw_rate" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="timeout" from="throw_rate" to="." method="_on_throw_rate_timeout"]

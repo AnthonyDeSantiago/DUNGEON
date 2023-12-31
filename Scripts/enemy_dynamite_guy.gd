@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @export var SPEED = 1
 @export var ACCEL = 5
-@export var min_distance_to_target = 100
+@export var throw_speed = 500
+@export var min_distance_to_target = 300
 @export var target_body: CharacterBody2D = null
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -31,9 +32,10 @@ func _physics_process(delta):
 	movement_component.move(self, delta)
 	
 	if movement_component.reached_target():
-		animation_player.play("Throwing")
 		
 		if can_throw:
+			print(can_throw)
+			animation_player.play("Throwing")
 			can_throw = false
 			throw_timer.start()
 			var t = preload("res://Scenes/Components/throwable.tscn")
@@ -43,10 +45,11 @@ func _physics_process(delta):
 			
 			add_sibling(t_instance)
 			t_instance.init_throwable()
+			t_instance.set_speed(throw_speed)
 			t_instance.set_throwable(d_instance)
-			t_instance.set_origin(position)
-			t_instance.set_destination(target)
-			t_instance.create_parabola()
+			t_instance.set_origin(position - global_position)
+			t_instance.set_destination(target - global_position)
+			t_instance.create_line()
 			t_instance.position = position
 			
 		
@@ -66,5 +69,6 @@ func flip_sprite():
 
 
 func _on_throw_rate_timeout():
+	print("timeout")
 	can_throw = true
 	throw_timer.stop()

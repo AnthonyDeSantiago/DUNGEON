@@ -18,7 +18,8 @@ func _ready():
 
 func _process(delta):
 	if path != null and path_follow_2d != null:
-		progress(delta)
+		if throwable != null:
+			progress(delta)
 		
 
 func init_throwable():
@@ -53,7 +54,37 @@ func create_parabola():
 			var y = a * x * x + b * x + c
 			parabola_line.add_point(Vector2(x, y))
 		path.curve = parabola_line
-
+		
+func create_line():
+	if path == null:
+		print("path is null")
+	else:
+		var y2 = point_destination.y
+		var y1 = point_origin.y
+		var x2 = point_destination.x
+		var x1 = point_origin.x
+		
+		var slope = (y2 - y1) / (x2 - x1)
+		if x2 < x1:
+			for x in range(int(point_origin.x), int(point_destination.x) + 1, -1):
+				var y = slope * x
+				parabola_line.add_point(Vector2(x, y))
+		else:
+			for x in range(int(point_origin.x), int(point_destination.x) + 1):
+				var y = slope * x
+				parabola_line.add_point(Vector2(x, y))
+		path.curve = parabola_line
+	
 func progress(delta):
 	path_follow_2d.progress += speed * delta
+	if path_follow_2d.get_child_count() == 0:
+		queue_free()
+
+'''
+Setter for throwable speed
+
+:param value: new value for speed
+'''
+func set_speed(value):
+	speed = value
 
