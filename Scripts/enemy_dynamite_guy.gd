@@ -29,7 +29,7 @@ func _ready():
 	movement_component.base_mov_speed = SPEED
 	movement_component.base_acceleration = ACCEL
 	movement_component.base_min_distance_to_target = throw_range
-	throw_timer.wait_time = 1 / throw_rate
+	throw_timer.wait_time = 1.0 / throw_rate
 	
 func _physics_process(delta):
 	if target_body == null:
