@@ -12,16 +12,18 @@ extends CharacterBody2D
 @export var throw_range = 300
 ##The rate that this enemy throws
 @export var throw_rate = 1
+##The amount of time in seconds before explosion
+@export var fuse_timer = 1
 
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var movement_component: Component_Movement = $component_movement
 @onready var health_component: Component_Health = $component_health
 @onready var hitbox: Component_Hitbox = $component_hitbox
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var target: Vector2
 @onready var component_throwable_telegraph: Component_Throwable_Telegraph = $component_throwable_telegraph
-@onready var can_throw = true
+@onready var can_throw: bool = true
 @onready var throw_timer: Timer = $throw_rate
 
 
