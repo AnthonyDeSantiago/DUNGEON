@@ -8,12 +8,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	var horizontal = Input.get_axis("left", "right")
-	
-	velocity.y = Input.get_axis("down", "up")
+	velocity.y = Input.get_axis("up", "down")
 	velocity.x = Input.get_axis("left", "right")
-	
-	
 	
 	print("velocity.y: ", velocity.y)
 	print("velocity.x: ", velocity.x)

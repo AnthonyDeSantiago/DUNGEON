@@ -18,6 +18,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Dungeon"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
 [input]
 
 left={

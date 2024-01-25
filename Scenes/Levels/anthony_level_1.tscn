@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnlx1hy45i7c0"]
+[gd_scene load_steps=15 format=3 uid="uid://dnlx1hy45i7c0"]
 
 [ext_resource type="PackedScene" uid="uid://ct8wofrqhdxlh" path="res://Scenes/Enemies/enemy_dynamite_guy.tscn" id="1_ij1vo"]
 [ext_resource type="Texture2D" uid="uid://uwkvptjyjfvq" path="res://Art/Terrain/Ground/Tilemap_Elevation.png" id="2_n2vvo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b82ye4g0ivnu8" path="res://Art/Terrain/Ground/Shadows.png" id="3_rav60"]
 [ext_resource type="Texture2D" uid="uid://w144kjfilmdw" path="res://Art/Terrain/Bridge/Bridge_All.png" id="4_qbbba"]
 [ext_resource type="Texture2D" uid="uid://cccnt3gs61yuw" path="res://Art/Terrain/Water/Water.png" id="5_kfmb7"]
+[ext_resource type="PackedScene" uid="uid://g3emom8gdkq0" path="res://Scenes/Player/player.tscn" id="7_bfaq7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_15oqf"]
 texture = ExtResource("3_6gadd")
@@ -169,4 +170,8 @@ layer_0/tile_data = PackedInt32Array(65540, 524288, 4, 4, 524288, 0, 65541, 2621
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_0wdao")
 
-[node name="enemy_dynamite_guy" parent="." instance=ExtResource("1_ij1vo")]
+[node name="enemy_dynamite_guy" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("1_ij1vo")]
+target_body = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("7_bfaq7")]
+position = Vector2(480, 343)
