@@ -1,10 +1,11 @@
-[gd_scene load_steps=37 format=3 uid="uid://g3emom8gdkq0"]
+[gd_scene load_steps=39 format=3 uid="uid://g3emom8gdkq0"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_7tmux"]
 [ext_resource type="Texture2D" uid="uid://dff4sl4h3asuv" path="res://Art/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_ga7bh"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_bbt16"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_7swen"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_player_state.gd" id="5_ctu0d"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_gi4vn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxyyu"]
 atlas = ExtResource("1_ga7bh")
@@ -245,33 +246,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_p6c18"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Attack_Vertical_Side"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_8mkls"]
 resource_name = "Idle"
 length = 0.6
@@ -301,11 +275,68 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_p6c18"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack_Vertical_Side"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fua82"]
+resource_name = "Run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0qusu"]
 _data = {
 "Attack_Side": SubResource("Animation_rw2b0"),
 "Idle": SubResource("Animation_8mkls"),
-"RESET": SubResource("Animation_p6c18")
+"RESET": SubResource("Animation_p6c18"),
+"Run": SubResource("Animation_fua82")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -327,6 +358,21 @@ initial_state = NodePath("Idle")
 script = ExtResource("5_ctu0d")
 animation_player = NodePath("../../../AnimationPlayer")
 animation_name = &"Idle"
+
+[node name="To_Running" type="Node" parent="StateChart/Root/Idle"]
+script = ExtResource("6_gi4vn")
+to = NodePath("../../Run")
+event = &"player_is_running"
+
+[node name="Run" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_ctu0d")
+animation_player = NodePath("../../../AnimationPlayer")
+animation_name = &"Run"
+
+[node name="To_Idle" type="Node" parent="StateChart/Root/Run"]
+script = ExtResource("6_gi4vn")
+to = NodePath("../../Idle")
+event = &"player_is_idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
