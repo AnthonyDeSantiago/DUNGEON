@@ -172,7 +172,7 @@ navigation_polygon = SubResource("NavigationPolygon_0wdao")
 
 [node name="enemy_dynamite_guy" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("1_ij1vo")]
 target_body = NodePath("../Player")
-fuse_length = 1.0
+fuse_length = 2.0
 
 [node name="Player" parent="." instance=ExtResource("7_bfaq7")]
 position = Vector2(480, 343)

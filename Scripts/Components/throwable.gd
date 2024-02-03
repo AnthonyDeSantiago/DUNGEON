@@ -74,7 +74,11 @@ func create_line():
 	
 func progress(delta):
 	path_follow_2d.progress += speed * delta
+	if has_reached_destination():
+		if throwable.has_method("land"):
+			throwable.land()
 	if path_follow_2d.get_child_count() == 0:
+		print("Deleting throwable")
 		queue_free()
 
 '''
@@ -84,4 +88,14 @@ Setter for throwable speed
 '''
 func set_speed(value):
 	speed = value
+
+'''
+Checks if this throwable has reached destination.
+
+:return bool: returns true if destination has been reached.
+'''
+func has_reached_destination():
+	if path_follow_2d.progress_ratio == 1:
+		return true
+	return false
 
