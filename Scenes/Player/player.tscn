@@ -163,7 +163,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Attack_Vertical_Side",
-"speed": 11.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -220,7 +220,6 @@ animations = [{
 [sub_resource type="Animation" id="Animation_rw2b0"]
 resource_name = "Attack_Side"
 length = 0.6
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -364,6 +363,11 @@ script = ExtResource("6_gi4vn")
 to = NodePath("../../Run")
 event = &"player_is_running"
 
+[node name="To_Attack_Side" type="Node" parent="StateChart/Root/Idle"]
+script = ExtResource("6_gi4vn")
+to = NodePath("../../Attack_Side")
+event = &"player_is_attacking"
+
 [node name="Run" type="Node" parent="StateChart/Root"]
 script = ExtResource("5_ctu0d")
 animation_player = NodePath("../../../AnimationPlayer")
@@ -374,7 +378,26 @@ script = ExtResource("6_gi4vn")
 to = NodePath("../../Idle")
 event = &"player_is_idle"
 
+[node name="To_Attack_Side" type="Node" parent="StateChart/Root/Run"]
+script = ExtResource("6_gi4vn")
+to = NodePath("../../Attack_Side")
+event = &"player_is_attacking"
+
+[node name="Attack_Side" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_ctu0d")
+animation_player = NodePath("../../../AnimationPlayer")
+animation_name = &"Attack_Side"
+custom_speed = 3.0
+
+[node name="To_Idle" type="Node" parent="StateChart/Root/Attack_Side"]
+script = ExtResource("6_gi4vn")
+to = NodePath("../../Idle")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0qusu")
 }
+
+[connection signal="state_entered" from="StateChart/Root/Attack_Side" to="." method="_on_attack_side_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Attack_Side" to="." method="_on_attack_side_state_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

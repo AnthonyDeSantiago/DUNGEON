@@ -13,7 +13,7 @@ extends CharacterBody2D
 ##The rate that this enemy throws
 @export var throw_rate = 1
 ##The amount of time in seconds before explosion
-@export var fuse_timer = 1
+@export var fuse_length = 3.0
 
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -54,10 +54,14 @@ func _physics_process(delta):
 			var d = preload("res://Scenes/Throwables/dynamite.tscn")
 			var d_instance: Dynamite = d.instantiate()
 			
+			
+			
 			add_sibling(t_instance)
 			t_instance.init_throwable()
 			t_instance.set_speed(throw_speed)
 			t_instance.set_throwable(d_instance)
+			d_instance.fuse.wait_time = fuse_length
+			d_instance.fuse.start()
 			t_instance.set_origin(position - global_position)
 			t_instance.set_destination(target - global_position)
 			t_instance.create_line()

@@ -301,6 +301,5 @@ libraries = {
 }
 
 [node name="throw_rate" type="Timer" parent="."]
-wait_time = 3.0
 
 [connection signal="timeout" from="throw_rate" to="." method="_on_throw_rate_timeout"]

@@ -5,10 +5,12 @@ class_name Dynamite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var fuse: Timer = $Fuse
 @onready var explosion_timer: Timer = $Explosion_Timer
+@onready var fuse_length: float = 1.0
 
 
 func _ready():
 	animation_player.play("lit_fuse")
+	
 
 func init_dynamite():
 	animated_sprite_2d = $AnimatedSprite2D
@@ -24,4 +26,5 @@ func _process(delta):
 
 func _on_fuse_timeout():
 	animation_player.play("explosion")
+
 

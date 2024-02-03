@@ -228,7 +228,6 @@ libraries = {
 [node name="Fuse" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-autostart = true
 
 [node name="Explosion_Timer" type="Timer" parent="."]
 
